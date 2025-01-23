@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import {User} from '../models/userModel';
+import { User } from '../models/userModel';
 
 export class UserController {
     // Retrieve user information by ID
-    async getUserById(req: Request<{ id: string }>, res: Response) {
+    async getUserById(req: Request, res: Response) {
         try {
             const userId = req.params.id;
             const user = await User.findById(userId);
