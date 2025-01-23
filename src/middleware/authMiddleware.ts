@@ -13,7 +13,7 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
 
 export const checkUserRole = (roles: string[]) => {
     return (req: Request, res: Response, next: NextFunction) => {
-        const userRole = req.user?.role; // Assuming user role is attached to req.user
+        const userRole = req.user?.role; 
         if (!roles.includes(userRole)) return res.sendStatus(403);
         next();
     };
