@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import {User} from '../models/user.model';
+import {User} from '../models/userModel';
 
 class AuthController {
     async register(req: Request, res: Response) {
