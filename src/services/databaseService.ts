@@ -10,10 +10,8 @@ export class DatabaseService {
         }
 
         try {
-            this.connection = await mongoose.connect(config.mongoURI, {
-                useNewUrlParser: true,
-                useUnifiedTopology: true,
-            });
+            await mongoose.connect(config.mongoURI);
+            this.connection = mongoose.connection;
             console.log('MongoDB connected successfully');
         } catch (error) {
             console.error('MongoDB connection error:', error);
@@ -35,6 +33,4 @@ export class DatabaseService {
             throw error;
         }
     }
-
-    // Additional methods for querying and updating user data can be added here
 }
