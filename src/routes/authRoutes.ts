@@ -1,10 +1,15 @@
-import { Router } from 'express';
-import AuthController from '../controllers/authController';
+const express = require('express');
+const AuthController = require('../controllers/AuthController');
+const passport = require('passport');
 
-const router = Router();
-const authController = new AuthController();
+const {isloggedin} = require('../middleware/authMiddleware');
 
-router.post('/register', authController.register);
-router.post('/login', authController.login);
+const router = express.Router();
 
-export default router;
+router.post('/register', AuthController.register);
+router.get('/login', passport.authenticate('github', {scope : ['user:email']}), AuthController.login);
+router.get('/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), AuthController.logincallback);
+router.get('/logout', isloggedin, AuthController.logout);
+router.get('/authenticated', isloggedin, AuthController.authCheck);
+
+module.exports = router;
