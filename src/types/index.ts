@@ -1,14 +1,5 @@
 // src/types/index.ts
-
-export interface User {
-    id: string;
-    username: string;
-    role: string;
-    email: string;
-    password: string;
-    createdAt: Date;
-    updatedAt: Date;
-}
+import {UserInterface} from "../models/userModel";
 
 export interface AuthRequest {
     username: string;
@@ -16,7 +7,7 @@ export interface AuthRequest {
 }
 
 export interface UserResponse {
-    user: User;
+    user: UserInterface;
     token: string;
 }
 
