@@ -1,6 +1,10 @@
 import { Request, Response } from 'express';
 import { GroqService } from './groqServices';
 import { GroqRequest, ChatMessage } from '../../types/llmTypes';
+<<<<<<< HEAD
+=======
+import config from '../../config/llmConfig';
+>>>>>>> e3716de7ef2ced8970d6a89689d4b3de11a8b370
 
 export class GroqController {
     private groqService: GroqService;
