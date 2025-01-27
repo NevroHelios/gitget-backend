@@ -1,18 +1,16 @@
 import axios from 'axios';
-import config from '../../config/llmConfig';
 import { GroqRequest, GroqResponse } from '../../types/llmTypes';
 
+const GROQ_API_KEY = process.env.GROQ_API_KEY;
 export class GroqService {
-    private config = new config();
-
     async generateCompletion(request: GroqRequest): Promise<string> {
         try {
             const response = await axios.post(
-                this.config.URL,
+                "https://api.groq.com/openai/v1/chat/completions",
                 request,
                 {
                     headers: {
-                        'Authorization': `Bearer ${this.config.API_KEY}`,
+                        'Authorization': `Bearer ${GROQ_API_KEY}`,
                         'Content-Type': 'application/json'
                     }
                 }
