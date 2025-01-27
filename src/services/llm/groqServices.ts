@@ -1,26 +1,24 @@
 import axios from 'axios';
+import config from '../../config/llmConfig';
 import { GroqRequest, GroqResponse } from '../../types/llmTypes';
 
 export class GroqService {
-    private apiKey: string;
-    private baseURL: string = 'https://api.groq.com/openai/v1';
+    private config = new config();
 
-    constructor() {
-        this.apiKey = process.env.GROQ_API_KEY || '';
-    }
-
-    async generateCompletion(request: GroqRequest): Promise<GroqResponse> {
+    async generateCompletion(request: GroqRequest): Promise<string> {
         try {
             const response = await axios.post(
-                `${this.baseURL}/chat/completions`,
+                this.config.URL,
                 request,
                 {
                     headers: {
-                        'Authorization': `Bearer ${this.apiKey}`,
+                        'Authorization': `Bearer ${this.config.API_KEY}`,
                         'Content-Type': 'application/json'
                     }
                 }
             );
+            
+            // Extract just the content from the response
             return response.data;
         } catch (error) {
             throw new Error(`Groq API error: ${error}`);
