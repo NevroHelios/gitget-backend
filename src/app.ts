@@ -11,8 +11,8 @@ const session = require("express-session");
 const axios = require('axios');
 const cors = require('cors');
 const app = express();
-const {CLIENT_ID, CLIENT_SECRET} = require('./secrets.js')
-const {connectToDatabase} = require('../src/config/database');
+const {CLIENT_ID, CLIENT_SECRET} = require('./secrets.ts')
+const connectToDatabase = require('../src/config/database');
 console.log("CLIENT_ID", CLIENT_ID);
 
 const authrouter = require('./routes/authRoutes');
@@ -50,9 +50,18 @@ passport.deserializeUser(function(user : any, done : any) {
 });
 
 
-async function main(){
-    await connectToDatabase();
+async function main() {
+    try {
+        await connectToDatabase();
+        app.listen(4001, () => {
+            console.log('Server is running on port 4000');
+        });
+    } catch (error) {
+        console.error('Error starting server:', error);
+        process.exit(1);
+    }
 }
+
 main();
 
 passport.use(new GitHubStrategy({

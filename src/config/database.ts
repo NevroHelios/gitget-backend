@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
-const {MONGODBURI} = require('../secrets.js')
+const {MONGODBURI} = require('../secrets.ts')
 
 const connectToDatabase = async () => {
     try {
-        const connectionString = MONGODBURI
+        const connectionString = MONGODBURI;
         await mongoose.connect(connectionString);
         console.log('Connected to MongoDB Atlas');
     } catch (error) {
@@ -12,4 +12,4 @@ const connectToDatabase = async () => {
     }
 };
 
-module.exports = { connectToDatabase};
+module.exports = connectToDatabase;

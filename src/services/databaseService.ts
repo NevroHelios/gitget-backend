@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
-import { config } from '../config/database';
-
+import { MONGODBURI } from '../secrets';
 export class DatabaseService {
     private connection: mongoose.Connection | null = null;
 
@@ -10,7 +9,7 @@ export class DatabaseService {
         }
 
         try {
-            await mongoose.connect(config.mongoURI);
+            await mongoose.connect(MONGODBURI);
             this.connection = mongoose.connection;
             console.log('MongoDB connected successfully');
         } catch (error) {
