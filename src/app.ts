@@ -11,7 +11,7 @@ const session = require("express-session");
 const axios = require('axios');
 const cors = require('cors');
 const app = express();
-const connectToDatabase = require('../src/config/database');
+import connectToDatabase from './config/database';
 
 const CLIENT_ID = process.env.CLIENT_ID || 'CLIENT_ID';
 const CLIENT_SECRET = process.env.CLIENT_SECRET || 'CLIENT_SECRET';
