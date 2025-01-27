@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20] # Specify the Node.js versions you want to test
+        node-version: [20, 18] # Specify the Node.js versions you want to test
 
     steps:
     # Checkout the code
