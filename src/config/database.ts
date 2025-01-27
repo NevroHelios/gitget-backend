@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-const {MONGODBURI} = require('../secrets.ts')
+const MONGODBURI = process.env.MONGODBURI || 'mongodb://localhost:27017/express-mongo';
 
 const connectToDatabase = async () => {
     try {
