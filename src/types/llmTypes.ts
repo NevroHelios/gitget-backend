@@ -22,3 +22,9 @@ export interface GroqResponse {
         total_tokens: number;
     };
 }
+
+export interface ChatMessage {
+    role: 'user' | 'assistant';
+    content: string;
+    timestamp: string;
+}

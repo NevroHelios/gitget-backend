@@ -8,6 +8,9 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14, 16, 18] # Specify the Node.js versions you want to test
 
     steps:
     # Checkout the code
@@ -18,7 +21,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '16' # Specify your Node.js version
+        node-version: ${{ matrix.node-version }} # Use the matrix variable
 
     # Install dependencies and build
     - name: Install dependencies
@@ -33,3 +36,10 @@ jobs:
         app-name: 'gitget170705' # Replace with your Azure App Service name
         slot-name: 'production' # Optional, use if deploying to a specific slot
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }} # Store your Azure publish profile in GitHub Secrets
+      
+      env:
+        NODE_ENV: production
+        GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        GITHUB_CLIENT_ID: ${{ secrets.GITHUB_CLIENT_ID }}
+        GITHUB_CLIENT_SECRET: ${{ secrets.GITHUB_CLIENT_SECRET }}
+        MONGODBURI: ${{ secrets.MONGODBURI }}

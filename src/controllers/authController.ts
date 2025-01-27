@@ -34,13 +34,6 @@ exports.login = async(req: Request, res: Response)=>{
 }
 
 exports.logincallback = async(req: Request, res: Response)=>{ 
-    // const existinguser = await User.findOne({
-    //     $or : [{
-    //         username: req.user?.username
-    //     }, {
-    //         email : req.user?["_json"].email
-    //     }]
-    // })
     const user =  (req.user as any).username;
     console.log("REQ.USER", user);
     res.send(req.user)
