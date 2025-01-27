@@ -73,7 +73,7 @@ main();
 passport.use(new GitHubStrategy({
     clientID: CLIENT_ID,
     clientSecret: CLIENT_SECRET,
-    callbackURL: "http://localhost:4000/api/auth/github/callback"
+    callbackURL: "http://0.0.0.0:4000/api/auth/github/callback"
 },
     async function (accessToken: string, refreshToken: null, profile: any, done: any) {
         process.nextTick(async function () {
