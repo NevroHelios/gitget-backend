@@ -1,8 +1,4 @@
 node_modules/
 .env
-<<<<<<< HEAD
 /src/secrets.js
 /src/config/llmConfig.ts
-=======
-/src/secrets.js
->>>>>>> e3716de7ef2ced8970d6a89689d4b3de11a8b370
