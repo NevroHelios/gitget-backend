@@ -41,7 +41,7 @@ exports.logincallback = async(req: Request, res: Response)=>{
     //         email : req.user?["_json"].email
     //     }]
     // })
-    const user = req.user?.username; //ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    const user =  (req.user as any).username;
     console.log("REQ.USER", user);
     res.send(req.user)
 }
