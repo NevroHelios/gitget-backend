@@ -11,7 +11,7 @@ const session = require("express-session");
 const axios = require('axios');
 const cors = require('cors');
 const app = express();
-const connectToDatabase = require('../src/config/database');
+import connectToDatabase from './config/database';
 
 const CLIENT_ID = process.env.CLIENT_ID || 'CLIENT_ID';
 const CLIENT_SECRET = process.env.CLIENT_SECRET || 'CLIENT_SECRET';
@@ -70,49 +70,49 @@ async function main() {
 
 main();
 
-passport.use(new GitHubStrategy({
-    clientID: CLIENT_ID,
-    clientSecret: CLIENT_SECRET,
-    callbackURL: process.env.NODE_ENV === 'production' 
-        ? "https://gitget170705.azurewebsites.net/api/auth/github/callback"
-        : "http://localhost:8080/api/auth/github/callback"
-},
-    async function (accessToken: string, refreshToken: null, profile: any, done: any) {
-        process.nextTick(async function () {
-            ACCESS_TOKEN = accessToken;
-            console.log("ACCESS TOKEN : ", accessToken);
-            console.log("USER PROFILE : ", profile);
-            const existinguser = await User.findOne({
-                $or: [{
-                    githubid: profile.id
-                }, {
-                    username: profile.username
-                }]
-            })
-            if (existinguser) {
-                return done(null, existinguser);
-            }
-            const newuser = new User({
-                githubid: profile.id,
-                name: profile.displayName,
-                username: profile.username,
-                email: profile["_json"].email,
-                password: accessToken,
-                avatarUrl: profile["_json"].avatar_url,
-                repos_url: profile["_json"].repos_url,
-                bio: profile["_json"].bio ? profile["_json"].bio : "No bio",
-                role: 'USER',
-                createdAt: profile["_json"].created_at,
-                updatedAt: profile["_json"].updated_at
-            })
-            await newuser.save();
-            return done(null, profile);
-        });
-    }
-));
+// passport.use(new GitHubStrategy({
+//     clientID: CLIENT_ID,
+//     clientSecret: CLIENT_SECRET,
+//     callbackURL: process.env.NODE_ENV === 'production' 
+//         ? "https://gitget170705.azurewebsites.net/api/auth/github/callback"
+//         : "http://localhost:8080/api/auth/github/callback"
+// },
+//     async function (accessToken: string, refreshToken: null, profile: any, done: any) {
+//         process.nextTick(async function () {
+//             ACCESS_TOKEN = accessToken;
+//             console.log("ACCESS TOKEN : ", accessToken);
+//             console.log("USER PROFILE : ", profile);
+//             const existinguser = await User.findOne({
+//                 $or: [{
+//                     githubid: profile.id
+//                 }, {
+//                     username: profile.username
+//                 }]
+//             })
+//             if (existinguser) {
+//                 return done(null, existinguser);
+//             }
+//             const newuser = new User({
+//                 githubid: profile.id,
+//                 name: profile.displayName,
+//                 username: profile.username,
+//                 email: profile["_json"].email,
+//                 password: accessToken,
+//                 avatarUrl: profile["_json"].avatar_url,
+//                 repos_url: profile["_json"].repos_url,
+//                 bio: profile["_json"].bio ? profile["_json"].bio : "No bio",
+//                 role: 'USER',
+//                 createdAt: profile["_json"].created_at,
+//                 updatedAt: profile["_json"].updated_at
+//             })
+//             await newuser.save();
+//             return done(null, profile);
+//         });
+//     }
+// ));
 
-app.use('/api/auth', authrouter);
-app.use('/api', groqRouter);
+// app.use('/api/auth', authrouter);
+// app.use('/api', groqRouter);
 // app.listen(4000, (req: Request, res: Response) => {
 //     console.log('Server is running on port 4000');
 // });
