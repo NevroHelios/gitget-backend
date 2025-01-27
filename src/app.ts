@@ -26,6 +26,10 @@ app.use(cors());
 
 let ACCESS_TOKEN = ''
 
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+  }
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
