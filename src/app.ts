@@ -19,7 +19,7 @@ console.log("CLIENT_ID", CLIENT_ID);
 
 const authrouter = require('./routes/authRoutes');
 
-const port = Number(process.env.PORT) || 3000;
+const port = Number(process.env.PORT) || 8080;
 
 // Enable CORS
 app.use(cors());
@@ -59,7 +59,7 @@ passport.deserializeUser(function (user: any, done: any) {
 async function main() {
     try {
         await connectToDatabase();
-        app.listen(4001, () => {
+        app.listen(port, () => {
             console.log('Server is running on port 4000');
         });
     } catch (error) {
@@ -73,7 +73,9 @@ main();
 passport.use(new GitHubStrategy({
     clientID: CLIENT_ID,
     clientSecret: CLIENT_SECRET,
-    callbackURL: "http://0.0.0.0:4000/api/auth/github/callback"
+    callbackURL: process.env.NODE_ENV === 'production' 
+        ? "https://gitget170705.azurewebsites.net/api/auth/github/callback"
+        : "http://localhost:8080/api/auth/github/callback"
 },
     async function (accessToken: string, refreshToken: null, profile: any, done: any) {
         process.nextTick(async function () {
@@ -111,9 +113,9 @@ passport.use(new GitHubStrategy({
 
 app.use('/api/auth', authrouter);
 app.use('/api', groqRouter);
-app.listen(4000, (req: Request, res: Response) => {
-    console.log('Server is running on port 4000');
-});
+// app.listen(4000, (req: Request, res: Response) => {
+//     console.log('Server is running on port 4000');
+// });
 
 app.get('/', (req: Request, res: Response) => {
     res.send('Hello, world!');
