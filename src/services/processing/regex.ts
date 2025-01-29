@@ -89,7 +89,7 @@ const importRegex = /^(import|from|require)\b.*$/i;
 const functionRegex = /^(function|def|fun)\s+[a-zA-Z_][a-zA-Z0-9_]*\s*\(/i;
 const variableRegex = /^(var|let|const|val)\s+[a-zA-Z_][a-zA-Z0-9_]*$/i;
 
-interface CodeEssence {
+export interface CodeEssence {
   filePath: string;
   imports?: string[];
   functions?: string[];
@@ -140,7 +140,7 @@ async function extractEssenceFromFile(filePath: string): Promise<CodeEssence> {
   return essence;
 }
 
-async function searchDirectory(root: string): Promise<CodeEssence[]> {
+export async function searchDirectory(root: string): Promise<CodeEssence[]> {
   const results: CodeEssence[] = [];
 
   async function processDirectory(directory: string): Promise<void> {
@@ -166,19 +166,19 @@ async function searchDirectory(root: string): Promise<CodeEssence[]> {
   return results;
 }
 
-function isRelevantFile(filePath: string): boolean {
+export function isRelevantFile(filePath: string): boolean {
   const ext = path.extname(filePath).toLowerCase();
   return relevantExtensions.includes(ext);
 }
 
-interface DiffAnalyzer {
+export interface DiffAnalyzer {
   maxLines: number;
   contextLines: number;
   importantFiles: string[];
   ignorePatterns: RegExp[];
 }
 
-function newDiffAnalyzer(): DiffAnalyzer {
+export function newDiffAnalyzer(): DiffAnalyzer {
   return {
     maxLines: 2000,
     contextLines: 3,
@@ -187,7 +187,7 @@ function newDiffAnalyzer(): DiffAnalyzer {
   };
 }
 
-function filterImportantChanges(lines: string[], analyzer: DiffAnalyzer): string[] {
+export function filterImportantChanges(lines: string[], analyzer: DiffAnalyzer): string[] {
   const filtered: string[] = [];
 
   let language = '';
