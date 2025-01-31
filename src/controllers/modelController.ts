@@ -26,7 +26,8 @@ export class ModelController {
                 messages
             });
 
-            const formattedResponse = this.postprocessor.formatResponse(response);
+            // const formattedResponse = this.postprocessor.formatResponse(response);
+            const formattedResponse = messages;
             res.json({ response: formattedResponse });
         } catch (error) {
             res.status(500).json({ error: 'Model processing failed' });
