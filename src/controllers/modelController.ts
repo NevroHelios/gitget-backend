@@ -19,7 +19,8 @@ export class ModelController {
     async generateResponse(req: Request, res: Response) {
         try {
             const { prompt } = req.body;
-            const messages = this.preprocessor.formatMessages(prompt);
+            // const messages = this.preprocessor.formatMessages(prompt);
+            const messages = prompt;
             
             const response = await this.groqService.generateCompletion({
                 model: "llama-3.3-70b-versatile",
