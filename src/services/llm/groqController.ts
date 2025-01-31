@@ -16,7 +16,8 @@ export class GroqController {
         try {
             const request: GroqRequest = {
                 model: "llama-3.3-70b-versatile",
-                messages: this.preprocessor.formatMessages(req.body.content)
+                // messages: this.preprocessor.formatMessages(req.body.content)
+                messages: req.body.content
             };
             
             const content = await this.groqService.generateCompletion(request);
